@@ -13,7 +13,7 @@ services:
   db:
     image: mysql
     volumes:
-      - db:/var/lib/mysql  # Correctly uses a named volume
+      - db:/var/lib/mysql  
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 123
@@ -24,9 +24,24 @@ services:
     ports:
       - 8080:80
     environment:
-      PMA_ARBITRARY: 1  # Allows arbitrary server connections
+      PMA_ARBITRARY: 1  
     depends_on:
       - db
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - "9090:8080"
+      - "50000:50000" # For Jenkins agent communication
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock # To enable Jenkins to use Docker
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false  # Example environment variable
+      
+
 volumes:
-  db:  # Declare the named volume here
+  db:
+  jenkins_home:
