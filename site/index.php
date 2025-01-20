@@ -1,4 +1,6 @@
+
 <?php
+
 $servername = "db"; 
 $username = "root";
 $password = "123"; 
@@ -33,10 +35,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary</title>
+    <title>Simple Dictionary Application</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 20px 0;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>My Dictionary </h1>
+    <h1>My Dictionary</h1>
     <form method="POST" action="">
         <label for="word">Enter a word:</label>
         <input type="text" id="word" name="word" required>
