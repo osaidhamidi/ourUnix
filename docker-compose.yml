@@ -1,0 +1,32 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./site:/var/www/html
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    volumes:
+      - db:/var/lib/mysql  # Correctly uses a named volume
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_ARBITRARY: 1  # Allows arbitrary server connections
+    depends_on:
+      - db
+
+volumes:
+  db:  # Declare the named volume here
